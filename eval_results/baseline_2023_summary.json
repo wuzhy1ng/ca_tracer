@@ -1,0 +1,49 @@
+{
+  "context": {
+    "window_days": 7,
+    "top_k": 10,
+    "amount_rel_tolerance": "0.10",
+    "amount_abs_tolerance": "1",
+    "max_sequence_length": 6,
+    "max_subset_length": 3,
+    "subset_pool_size": 10,
+    "unique_candidate_rel_tolerance": "0.01"
+  },
+  "totals": {
+    "case_count": 2345,
+    "top1_hits": 1094,
+    "top5_hits": 2049,
+    "top10_hits": 2283,
+    "false_top1": 1251,
+    "manual_review": 1615
+  },
+  "metrics": {
+    "top1_recall": 0.46652452025586355,
+    "top5_recall": 0.873773987206823,
+    "top10_recall": 0.9735607675906184,
+    "false_match_rate": 0.5334754797441364,
+    "manual_review_rate": 0.6886993603411514,
+    "avg_candidate_count": 12.162899786780384,
+    "avg_runtime_ms": 6.9284200852864455,
+    "p95_runtime_ms": 13.25249999990774
+  },
+  "per_type": {
+    "fiat_buy_to_chain_withdrawal": {
+      "case_count": 1709,
+      "top1_hits": 850,
+      "top5_hits": 1525,
+      "top10_hits": 1689
+    },
+    "fiat_sell_to_chain_deposit": {
+      "case_count": 636,
+      "top1_hits": 244,
+      "top5_hits": 524,
+      "top10_hits": 594
+    }
+  },
+  "cases": [],
+  "generated_at": "2026-05-31T01:52:04.838111+00:00",
+  "input_labels": "data\\label\\stablecoins_2023\\stablecoin_label_tags_2023.json",
+  "candidate_source": "label_events_chain_transfer_pool",
+  "note": "This baseline evaluates ranking logic over chain_transfer events already present in the label file. Use decoded raw Tron transfers as the next candidate source once raw data and label dates are aligned."
+}

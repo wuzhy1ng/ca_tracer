@@ -1,0 +1,69 @@
+{
+  "operators": [
+    {
+      "name": "nearest_single_transfer",
+      "function": "algos.baseline.nearest_single_transfer",
+      "scenario": "单笔链上转账与链下锚点金额接近的一对一匹配。",
+      "limitations": [
+        "常见整数金额竞争者多时容易误排第一",
+        "不处理拆单组合"
+      ],
+      "trigger_features": [
+        "one_to_one",
+        "small_amount_gap"
+      ],
+      "explanation_template": "按金额差排序，并报告时间差与竞争风险。",
+      "passed_cases": [],
+      "failed_cases": []
+    },
+    {
+      "name": "time_decay_single_transfer",
+      "function": "algos.baseline.time_decay_single_transfer",
+      "scenario": "金额接近且时间越近越可信的一对一匹配。",
+      "limitations": [
+        "长延迟真实交易可能被压低",
+        "不处理拆单组合"
+      ],
+      "trigger_features": [
+        "one_to_one",
+        "small_amount_gap",
+        "short_time_gap"
+      ],
+      "explanation_template": "综合金额相似和时间衰减给出排序。",
+      "passed_cases": [],
+      "failed_cases": []
+    },
+    {
+      "name": "sequence_sum_transfer",
+      "function": "algos.baseline.sequence_sum_transfer",
+      "scenario": "多笔时间连续链上转账合计接近链下金额的一对多匹配。",
+      "limitations": [
+        "只搜索连续片段",
+        "候选过多时依赖时间排序"
+      ],
+      "trigger_features": [
+        "one_to_many",
+        "ordered_split"
+      ],
+      "explanation_template": "枚举时间连续组合，报告组合长度、金额差和跨度。",
+      "passed_cases": [],
+      "failed_cases": []
+    },
+    {
+      "name": "subset_sum_limited_transfer",
+      "function": "algos.baseline.subset_sum_limited_transfer",
+      "scenario": "多笔非连续候选合计接近链下金额的一对多匹配。",
+      "limitations": [
+        "组合长度与候选池大小受限",
+        "候选池太宽时可能漏召回"
+      ],
+      "trigger_features": [
+        "one_to_many",
+        "non_contiguous_split"
+      ],
+      "explanation_template": "在金额近邻候选中搜索有限子集和，并输出组合证据。",
+      "passed_cases": [],
+      "failed_cases": []
+    }
+  ]
+}

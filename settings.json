@@ -1,0 +1,11 @@
+{
+  "tronscan": {
+    "api": "https://apilist.tronscan.org/api",
+    "apikey": [
+      "839e1744-4ce2-402c-810d-df11d06f4500",
+      "bf28ec3a-2cc3-4be3-a97f-1a1360c96c2c",
+      "4978863d-e97a-4da7-a8de-546d050c98c4",
+      "9a715810-8e38-4f47-834b-03f51533ced0"
+    ]
+  }
+}

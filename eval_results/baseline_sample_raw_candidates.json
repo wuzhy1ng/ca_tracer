@@ -1,0 +1,49 @@
+{
+  "context": {
+    "window_days": 7,
+    "top_k": 10,
+    "amount_rel_tolerance": "0.10",
+    "amount_abs_tolerance": "1",
+    "max_sequence_length": 6,
+    "max_subset_length": 3,
+    "subset_pool_size": 10,
+    "unique_candidate_rel_tolerance": "0.01"
+  },
+  "totals": {
+    "case_count": 2345,
+    "top1_hits": 0,
+    "top5_hits": 0,
+    "top10_hits": 0,
+    "false_top1": 0,
+    "manual_review": 2345
+  },
+  "metrics": {
+    "top1_recall": 0.0,
+    "top5_recall": 0.0,
+    "top10_recall": 0.0,
+    "false_match_rate": 0.0,
+    "manual_review_rate": 1.0,
+    "avg_candidate_count": 0,
+    "avg_runtime_ms": 0.9897034541638261,
+    "p95_runtime_ms": 1.0380999992776196
+  },
+  "per_type": {
+    "fiat_buy_to_chain_withdrawal": {
+      "case_count": 1709,
+      "top1_hits": 0,
+      "top5_hits": 0,
+      "top10_hits": 0
+    },
+    "fiat_sell_to_chain_deposit": {
+      "case_count": 636,
+      "top1_hits": 0,
+      "top5_hits": 0,
+      "top10_hits": 0
+    }
+  },
+  "cases": [],
+  "generated_at": "2026-05-31T02:46:00.875243+00:00",
+  "input_labels": "data\\label\\stablecoins_2023\\stablecoin_label_tags_2023.json",
+  "candidate_source": "decoded_transfer_jsonl:data\\processed\\tron_stablecoin_transfers\\sample_transfers.jsonl",
+  "note": "Use --candidate-jsonl to evaluate against decoded transfer candidates; otherwise the label-contained chain events are used."
+}

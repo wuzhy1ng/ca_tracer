@@ -1,0 +1,233 @@
+{
+  "source": "C:\\Users\\87016\\py_projects\\ca_tracer\\eval_results\\baseline_2023.json",
+  "rounds": [
+    {
+      "case_id": "evt_021127",
+      "failure": {
+        "anchor_event_id": "evt_021127",
+        "label_type": "fiat_buy_to_chain_withdrawal",
+        "truth_ids": [
+          "evt_021353",
+          "evt_021378"
+        ],
+        "observed_top_ids": [
+          "evt_021152",
+          "evt_021154"
+        ],
+        "failure_type": "partial_combination",
+        "likely_causes": [
+          "部分真实候选被召回，组合搜索需要更好地扩展或剪枝"
+        ],
+        "synthesis_plan": [
+          "围绕已命中候选做邻域扩展",
+          "尝试非连续组合搜索"
+        ]
+      },
+      "proposed_operator_name": "residual_beam_sum_transfer",
+      "proposed_operator_source": "def residual_beam_sum_transfer(anchor, candidates, context):\n    \"\"\"Prefer combinations that reduce the remaining amount gap step by step.\"\"\"\n    beams = [([], event_amount(anchor))]\n    for candidate in sorted(candidates, key=lambda item: event_time(item)):\n        next_beams = list(beams)\n        amount = event_amount(candidate)\n        for group, residual in beams:\n            if len(group) >= context.max_sequence_length:\n                continue\n            next_group = group + [candidate]\n            next_beams.append((next_group, abs(residual - amount)))\n        beams = sorted(next_beams, key=lambda item: item[1])[: context.subset_pool_size]\n    return [make_result(\"residual_beam_sum_transfer\", anchor, group, context, 0.83) for group, _ in beams if group]\n",
+      "similarity_blocked": false,
+      "similarity_report": {
+        "comparisons": [
+          {
+            "operator": "nearest_single_transfer",
+            "source_jaccard": 0.2549019607843137,
+            "behavior_jaccard": 0.0
+          },
+          {
+            "operator": "time_decay_single_transfer",
+            "source_jaccard": 0.25925925925925924,
+            "behavior_jaccard": 0.0
+          },
+          {
+            "operator": "sequence_sum_transfer",
+            "source_jaccard": 0.27692307692307694,
+            "behavior_jaccard": 0.0
+          },
+          {
+            "operator": "subset_sum_limited_transfer",
+            "source_jaccard": 0.3442622950819672,
+            "behavior_jaccard": 0.0
+          }
+        ]
+      },
+      "decision": "validated_candidate_ready_for_review",
+      "notes": [
+        "Generated operators are promoted only after sandbox validation and validation-set improvement.",
+        "Promote the operator only after validation-set recall improves without unacceptable false-match growth."
+      ],
+      "llm_used": false,
+      "validation_report": {
+        "runnable": true,
+        "evaluated_cases": 3,
+        "top1_hits": 0,
+        "top5_hits": 0,
+        "top10_hits": 0,
+        "errors": [],
+        "top1_recall": 0.0,
+        "top5_recall": 0.0,
+        "top10_recall": 0.0
+      },
+      "operator_metadata": {
+        "scenario": "Template fallback generated from failure type.",
+        "limitations": [
+          "No LLM was used; validate before promotion."
+        ],
+        "trigger_features": [
+          "partial_combination"
+        ],
+        "explanation_template": "Use result evidence emitted by make_result."
+      }
+    },
+    {
+      "case_id": "evt_025417",
+      "failure": {
+        "anchor_event_id": "evt_025417",
+        "label_type": "fiat_buy_to_chain_withdrawal",
+        "truth_ids": [
+          "evt_025978",
+          "evt_026022"
+        ],
+        "observed_top_ids": [
+          "evt_025649"
+        ],
+        "failure_type": "missed_combination",
+        "likely_causes": [
+          "真实关系是一对多，现有组合算子没有找到完整集合"
+        ],
+        "synthesis_plan": [
+          "增加组合长度上限",
+          "按金额残差做 beam search"
+        ]
+      },
+      "proposed_operator_name": "residual_beam_sum_transfer",
+      "proposed_operator_source": "def residual_beam_sum_transfer(anchor, candidates, context):\n    \"\"\"Prefer combinations that reduce the remaining amount gap step by step.\"\"\"\n    beams = [([], event_amount(anchor))]\n    for candidate in sorted(candidates, key=lambda item: event_time(item)):\n        next_beams = list(beams)\n        amount = event_amount(candidate)\n        for group, residual in beams:\n            if len(group) >= context.max_sequence_length:\n                continue\n            next_group = group + [candidate]\n            next_beams.append((next_group, abs(residual - amount)))\n        beams = sorted(next_beams, key=lambda item: item[1])[: context.subset_pool_size]\n    return [make_result(\"residual_beam_sum_transfer\", anchor, group, context, 0.83) for group, _ in beams if group]\n",
+      "similarity_blocked": false,
+      "similarity_report": {
+        "comparisons": [
+          {
+            "operator": "nearest_single_transfer",
+            "source_jaccard": 0.2549019607843137,
+            "behavior_jaccard": 0.0
+          },
+          {
+            "operator": "time_decay_single_transfer",
+            "source_jaccard": 0.25925925925925924,
+            "behavior_jaccard": 0.0
+          },
+          {
+            "operator": "sequence_sum_transfer",
+            "source_jaccard": 0.27692307692307694,
+            "behavior_jaccard": 0.0
+          },
+          {
+            "operator": "subset_sum_limited_transfer",
+            "source_jaccard": 0.3442622950819672,
+            "behavior_jaccard": 0.0
+          }
+        ]
+      },
+      "decision": "validated_candidate_ready_for_review",
+      "notes": [
+        "Generated operators are promoted only after sandbox validation and validation-set improvement.",
+        "Promote the operator only after validation-set recall improves without unacceptable false-match growth."
+      ],
+      "llm_used": false,
+      "validation_report": {
+        "runnable": true,
+        "evaluated_cases": 3,
+        "top1_hits": 0,
+        "top5_hits": 0,
+        "top10_hits": 0,
+        "errors": [],
+        "top1_recall": 0.0,
+        "top5_recall": 0.0,
+        "top10_recall": 0.0
+      },
+      "operator_metadata": {
+        "scenario": "Template fallback generated from failure type.",
+        "limitations": [
+          "No LLM was used; validate before promotion."
+        ],
+        "trigger_features": [
+          "missed_combination"
+        ],
+        "explanation_template": "Use result evidence emitted by make_result."
+      }
+    },
+    {
+      "case_id": "evt_025650",
+      "failure": {
+        "anchor_event_id": "evt_025650",
+        "label_type": "fiat_buy_to_chain_withdrawal",
+        "truth_ids": [
+          "evt_026173"
+        ],
+        "observed_top_ids": [
+          "evt_025656"
+        ],
+        "failure_type": "missed_single",
+        "likely_causes": [
+          "真实单笔候选未进入 Top-K，可能存在高频整数金额竞争或时间延迟模式"
+        ],
+        "synthesis_plan": [
+          "加入交易所地址/账户上下文",
+          "对长延迟单笔单独建模"
+        ]
+      },
+      "proposed_operator_name": "competition_aware_single_transfer",
+      "proposed_operator_source": "def competition_aware_single_transfer(anchor, candidates, context):\n    \"\"\"Penalize round-amount collisions when many near-amount candidates compete.\"\"\"\n    ranked = []\n    target = event_amount(anchor)\n    for candidate in candidates:\n        gap = amount_gap(anchor, [candidate])\n        competitor_penalty = Decimal(\"0.02\") if is_round_amount(target) else Decimal(\"0\")\n        ranked.append((gap / max(target, Decimal(\"1\")) + competitor_penalty, candidate))\n    ranked.sort(key=lambda item: item[0])\n    return [make_result(\"competition_aware_single_transfer\", anchor, [item[1]], context, 0.84) for item in ranked[:context.top_k]]\n",
+      "similarity_blocked": false,
+      "similarity_report": {
+        "comparisons": [
+          {
+            "operator": "nearest_single_transfer",
+            "source_jaccard": 0.2978723404255319,
+            "behavior_jaccard": 0.0
+          },
+          {
+            "operator": "time_decay_single_transfer",
+            "source_jaccard": 0.32653061224489793,
+            "behavior_jaccard": 0.0
+          },
+          {
+            "operator": "sequence_sum_transfer",
+            "source_jaccard": 0.3333333333333333,
+            "behavior_jaccard": 0.0
+          },
+          {
+            "operator": "subset_sum_limited_transfer",
+            "source_jaccard": 0.27419354838709675,
+            "behavior_jaccard": 0.0
+          }
+        ]
+      },
+      "decision": "validated_candidate_ready_for_review",
+      "notes": [
+        "Generated operators are promoted only after sandbox validation and validation-set improvement.",
+        "Promote the operator only after validation-set recall improves without unacceptable false-match growth."
+      ],
+      "llm_used": false,
+      "validation_report": {
+        "runnable": true,
+        "evaluated_cases": 3,
+        "top1_hits": 1,
+        "top5_hits": 1,
+        "top10_hits": 1,
+        "errors": [],
+        "top1_recall": 0.3333333333333333,
+        "top5_recall": 0.3333333333333333,
+        "top10_recall": 0.3333333333333333
+      },
+      "operator_metadata": {
+        "scenario": "Template fallback generated from failure type.",
+        "limitations": [
+          "No LLM was used; validate before promotion."
+        ],
+        "trigger_features": [
+          "missed_single"
+        ],
+        "explanation_template": "Use result evidence emitted by make_result."
+      }
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "name": "gap_first_pair_sum_transfer",
+  "source": "def gap_first_pair_sum_transfer(anchor, candidates, context):\n    \"\"\"Rank short combinations by amount gap first, then time span.\"\"\"\n    ranked = []\n    ordered = sorted(candidates, key=lambda item: event_time(item))\n    for i, first in enumerate(ordered):\n        ranked.append(make_result(\"gap_first_pair_sum_transfer\", anchor, [first], context, 0.80))\n        for second in ordered[i + 1: min(len(ordered), i + context.subset_pool_size)]:\n            ranked.append(make_result(\"gap_first_pair_sum_transfer\", anchor, [first, second], context, 0.84))\n    ranked.sort(key=lambda result: (Decimal(result.amount_gap), result.time_gap_hours))\n    return ranked[:context.top_k]\n",
+  "scenario": "Use when one-to-many failures suggest two nearby transfers may jointly match the anchor.",
+  "limitations": [
+    "Only searches pairs",
+    "Does not use address context"
+  ],
+  "trigger_features": [
+    "missed_combination",
+    "partial_combination"
+  ],
+  "explanation_template": "Explain the amount gap, pair size, and time span for the selected transfers."
+}

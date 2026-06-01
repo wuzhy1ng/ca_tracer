@@ -1,0 +1,12 @@
+[project]
+name = "ca-tracer"
+version = "0.1.0"
+description = "Research prototype for matching off-chain fiat stablecoin records to Tron stablecoin transfers."
+requires-python = ">=3.11"
+dependencies = [
+  "openpyxl>=3.1",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
